@@ -10,16 +10,17 @@ const OpenZeppelinTeamNFT = artifacts.require('OpenZeppelinTeamNFT');
 contract('OpenZeppelinTeamNFT', function (accounts) {
   const [ deployer, other ] = accounts;
 
-  const name = 'OpenZeppelinTeamNFT';
-  const symbol = 'NFT';
-  const baseURI = 'my.app/';
-  const otherBaseURI = 'my.app2/';
+  const name = 'OpenZeppelin Team NFT';
+  const symbol = 'OZT';
+  const baseURI = 'https://zpl.in/team-nft-metadata/';
 
   const DEFAULT_ADMIN_ROLE = '0x0000000000000000000000000000000000000000000000000000000000000000';
   const MINTER_ROLE = web3.utils.soliditySha3('MINTER_ROLE');
 
+  const tokenId = new BN('0');
+
   beforeEach(async function () {
-    this.token = await OpenZeppelinTeamNFT.new(name, symbol, baseURI, { from: deployer });
+    this.token = await OpenZeppelinTeamNFT.new({ from: deployer });
   });
 
   it('token has correct name', async function () {
@@ -44,9 +45,7 @@ contract('OpenZeppelinTeamNFT', function (accounts) {
 
   describe('minting', function () {
     it('deployer can mint tokens', async function () {
-      const tokenId = new BN('0');
-
-      const receipt = await this.token.safeMint(other, { from: deployer });
+      const receipt = await this.token.safeMint(other, tokenId, { from: deployer });
       expectEvent(receipt, 'Transfer', { from: ZERO_ADDRESS, to: other, tokenId });
 
       expect(await this.token.balanceOf(other)).to.be.bignumber.equal('1');
@@ -56,28 +55,7 @@ contract('OpenZeppelinTeamNFT', function (accounts) {
     });
 
     it('other accounts cannot mint tokens', async function () {
-      await expectRevert(
-        this.token.safeMint(other, { from: other }),
-        'OpenZeppelinTeamNFT: must have minter role to mint',
-      );
-    });
-  });
-
-  describe('set base uri', function () {
-    it('deployer can set base uri', async function () {
-      const tokenId = new BN('0');
-      await this.token.safeMint(other, { from: deployer });
-
-      await this.token.setBaseURI(otherBaseURI, { from: deployer });
-
-      expect(await this.token.tokenURI(tokenId)).to.equal(otherBaseURI + tokenId);
-    });
-
-    it('other accounts cannot set base uri', async function () {
-      await expectRevert(
-        this.token.setBaseURI(otherBaseURI, { from: other }),
-        'OpenZeppelinTeamNFT: must have set role to set',
-      );
+      await expectRevert.unspecified(this.token.safeMint(other, tokenId, { from: other }));
     });
   });
 });
