@@ -7,7 +7,7 @@ async function main () {
 
   // Add tokens.
   jsonMetaData.tokens = [];
-  for (let tokenId = 0; tokenId < 50; tokenId++) {
+  for (let tokenId = 0; tokenId < 35; tokenId++) {
     /* eslint-disable camelcase */
     // Add token.
     jsonMetaData.tokens[tokenId] = {
