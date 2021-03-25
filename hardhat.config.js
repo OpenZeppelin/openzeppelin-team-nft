@@ -1,10 +1,11 @@
 // hardhat.config.js
-const { alchemyApiKey, mnemonic, mnemonicMainnet } = require('./secrets.json');
+const { alchemyApiKey, mnemonic, mnemonicMainnet, etherscanApiKey } = require('./secrets.json');
 require('@nomiclabs/hardhat-ethers');
 require('@nomiclabs/hardhat-truffle5');
 require('@nomiclabs/hardhat-solhint');
 require('solidity-coverage');
 require('hardhat-gas-reporter');
+require("@nomiclabs/hardhat-etherscan");
 /**
  * @type import('hardhat/config').HardhatUserConfig
  */
@@ -22,4 +23,9 @@ module.exports = {
     },
   },
   solidity: '0.8.3',
+  etherscan: {
+    // Your API key for Etherscan
+    // Obtain one at https://etherscan.io/
+    apiKey: etherscanApiKey
+  },
 };
