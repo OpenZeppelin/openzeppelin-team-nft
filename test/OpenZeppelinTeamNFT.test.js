@@ -12,7 +12,7 @@ contract('OpenZeppelinTeamNFT', function (accounts) {
 
   const name = 'OpenZeppelin Team NFT';
   const symbol = 'OZT';
-  const baseURI = 'http://openzeppelin.github.io/openzeppelin-team-nft/api/token/';
+  const baseURI = 'https://openzeppelin.github.io/openzeppelin-team-nft/api/token/';
 
   const DEFAULT_ADMIN_ROLE = '0x0000000000000000000000000000000000000000000000000000000000000000';
   const MINTER_ROLE = web3.utils.soliditySha3('MINTER_ROLE');

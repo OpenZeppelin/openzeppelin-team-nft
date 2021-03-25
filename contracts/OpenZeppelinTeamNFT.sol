@@ -22,7 +22,7 @@ contract OpenZeppelinTeamNFT is ERC721, AccessControl {
     }
 
     function _baseURI() internal pure override returns (string memory) {
-        return "http://openzeppelin.github.io/openzeppelin-team-nft/api/token/";
+        return "https://openzeppelin.github.io/openzeppelin-team-nft/api/token/";
     }
 
     function safeMint(address to, uint256 tokenId) public {
